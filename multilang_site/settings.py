@@ -19,20 +19,7 @@ import environ
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-5vz0-=zjgkhr#+5m$@ll)httcwzqz_#w6s!@&(xtuirq1j_i6p'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = []
-
-
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -42,7 +29,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'main',
 ]
-
+# Middleware for requests and responses
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -51,11 +38,15 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'django.middleware.locale.LocaleMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware'
+    'django.middleware.locale.LocaleMiddleware', # Middleware for language choice
+    'whitenoise.middleware.WhiteNoiseMiddleware'  # Middleware for the static files in production
 ]
 
+# URL configuration for the project
 ROOT_URLCONF = 'multilang_site.urls'
+
+# WSGI application configuration
+WSGI_APPLICATION = 'multilang_site.wsgi.application'
 
 
 TEMPLATES = [
@@ -74,7 +65,6 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'multilang_site.wsgi.application'
 
 
 # Database
@@ -107,15 +97,17 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 # Internationalization
-# https://docs.djangoproject.com/en/5.0/topics/i18n/
 
+# Default language
 LANGUAGE_CODE = 'en'
 
+# Supported languages
 LANGUAGES = [
     ('en','English'),
     ('fr', 'French')
 ]
 
+# Paths to translation files
 LOCALE_PATHS = [
     os.path.join(BASE_DIR, 'locale'),
 ]
@@ -123,13 +115,10 @@ LOCALE_PATHS = [
 TIME_ZONE = 'UTC'
 
 USE_I18N = True
-
 USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.0/howto/static-files/
-
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
@@ -139,17 +128,12 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
-# Chemin absolu vers le répertoire où les fichiers statiques sont collectés
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-
-# Répertoires de recherche pour les fichiers statiques
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
 
 # Default primary key field type
-# https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
-
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
@@ -159,13 +143,13 @@ env = environ.Env(
 )
 environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
-# Utiliser les variables d'environnement
-SECRET_KEY = env('DJANGO_SECRET_KEY')
-DEBUG = env.bool('DEBUG', default=False)
-ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=['localhost'])
+# Load environment variables
+SECRET_KEY = env('DJANGO_SECRET_KEY', default='your-default-secret-key')
+DEBUG = env.bool('DEBUG', default=True)
+ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=['127.0.0.1'])
 
 
-# Configuration de la base de données
+# Database configuration
 DATABASES = {
-    'default': env.db(),
+    'default': env.db(default='sqlite:///db.sqlite3'),
 }

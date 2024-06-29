@@ -5,9 +5,9 @@ from django.utils.translation import gettext as _
 
 # Create your views here.
 
-def articles_list(request):
+def articles(request):
     articles = Article.objects.all()
-    return render(request, 'articles_list.html', {'articles': articles})
+    return render(request, 'articles.html', {'articles': articles})
 
 
 def single_article(request, article_id):

@@ -1,8 +1,8 @@
-<!DOCTYPE html>
 {% load i18n %}
 {% get_current_language as LANGUAGE_CODE %}
+{% load static %}
 
-<html lang="{{ LANGUAGE_CODE }}">
+<!DOCTYPE html>
 
 <head>
     <meta charset="UTF-8">
@@ -14,30 +14,31 @@
         {{ article.title_fr }}
         {% endif %}
     </title>
+    <link href="{% static 'style/style.css' %}" rel="stylesheet">
 </head>
-
 
 <body>
     {% include 'header.html' %}
-    {% get_current_language as LANGUAGE_CODE %}
 
+    <div class="article-container">
+        <h1>
+            {% if LANGUAGE_CODE == 'en' %}
+            {{ article.title_en }}
+            {% elif LANGUAGE_CODE == 'fr' %}
+            {{ article.title_fr }}
+            {% endif %}
+        </h1>
+        <p><strong>{% trans "Published on" %}:</strong> {{ article.publication_date }}</p>
 
-    <h1>
-        {% if LANGUAGE_CODE == 'en' %}
-        {{ article.title_en }}
-        {% elif LANGUAGE_CODE == 'fr' %}
-        {{ article.title_fr }}
-        {% endif %}
-    </h1>
-    <p>
-        {% if LANGUAGE_CODE == 'en' %}
-        {{ article.content_en }}
-        {% elif LANGUAGE_CODE == 'fr' %}
-        {{ article.content_fr }}
-        {% endif %}
-    </p>
-    <p><strong>{% trans "Published on" %}:</strong> {{ article.publication_date }}</p>
-    <a href="{% url 'articles_list' %}">{% trans "Back to Articles" %}</a>
+        <p>
+            {% if LANGUAGE_CODE == 'en' %}
+            {{ article.content_en }}
+            {% elif LANGUAGE_CODE == 'fr' %}
+            {{ article.content_fr }}
+            {% endif %}
+        </p>
+        <a class="back-link" href="{% url 'articles' %}">{% trans "Back to the articles" %}</a>
+    </div>
 </body>
 
 </html>

@@ -1,20 +1,25 @@
 <!DOCTYPE html>
 {% load i18n %}
 {% load static %}
+<html lang="{{ LANGUAGE_CODE }}">
+
 <header>
-    <form action="{% url 'set_language' %}" method="post">
-        {% csrf_token %}
-        <input name="next" type="hidden" value="{{ redirect_to }}">
-        {% get_current_language as LANGUAGE_CODE %}
-        {% get_available_languages as LANGUAGES %}
-        {% get_language_info_list for LANGUAGES as languages %}
+        <h1 style="color: white;">Multilang Site</h1>
+    <div class="language-switcher">
+        <form action="{% url 'set_language' %}" method="post" class="flex items-center">
+            {% csrf_token %}
+            <input name="next" type="hidden" value="{{ redirect_to }}">
+            {% get_current_language as LANGUAGE_CODE %}
+            {% get_available_languages as LANGUAGES %}
+            {% get_language_info_list for LANGUAGES as languages %}
+            
+            <button type="submit" name="language" value="en">
+                <img src="{% static 'img/uk_flag.png' %}" alt="English language">
+            </button>
 
-        <button type="submit" name="language" value="en">
-            <img src="{% static 'img/uk_flag.png' %}" alt="English language" style="width: 10px;">
-        </button>
-
-        <button type="submit" name="language" value="fr">
-            <img src="{% static 'img/fr_flag.png' %}" alt="Langue française" style="width: 10px;">
-        </button>
-    </form>
+            <button type="submit" name="language" value="fr">
+                <img src="{% static 'img/fr_flag.png' %}" alt="Langue française">
+            </button>
+        </form>
+    </div>
 </header>

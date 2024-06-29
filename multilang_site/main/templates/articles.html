@@ -1,0 +1,38 @@
+{% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% trans "Articles" %}</title>
+    <link href="{% static 'style/style.css' %}" rel="stylesheet">
+</head>
+
+<body>
+    {% include 'header.html' %}
+
+    <div class="article-container">
+        <h1>{% trans "All the articles" %}</h1>
+        <p>{% trans "Discover all our blog articles" %}</p>
+
+        {% for article in articles %}
+        <article>
+            <h2>
+                <a href="{% url 'single_article' article.id %}">
+                    {% if LANGUAGE_CODE == 'en' %}
+                    {{ article.title_en }}
+                    {% elif LANGUAGE_CODE == 'fr' %}
+                    {{ article.title_fr }}
+                    {% endif %}
+                </a>
+            </h2>
+        </article>
+        {% endfor %}
+    </div>
+</body>
+
+</html>

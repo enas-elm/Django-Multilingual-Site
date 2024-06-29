@@ -24,11 +24,11 @@ msgid "Published on"
 msgstr "Publié le"
 
 #: main/templates/article_detail.html:16
-msgid "Back to Articles"
+msgid "Back to the articles"
 msgstr "Retour aux articles"
 
 #: main/templates/articles_list.html:28
-msgid "All articles"
+msgid "All the articles"
 msgstr "Tous les articles"
 
 #: main/templates/articles_list.html:30

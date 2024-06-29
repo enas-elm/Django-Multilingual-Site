@@ -22,13 +22,7 @@ Follow these instructions to set up and run the project locally.
    cd Django-Multilingual-Site
    ```
 
-2. **Apply migrations**:
-
-   ```bash
-   python manage.py migrate
-   ```
-
-3. **Start the Django development server**:
+2. **Start the Django development server**:
    ```bash
    python manage.py runserver
    ```
